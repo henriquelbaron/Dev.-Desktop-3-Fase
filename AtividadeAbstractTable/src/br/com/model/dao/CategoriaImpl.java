@@ -31,6 +31,7 @@ public class CategoriaImpl implements Dao<Categoria> {
         em.getTransaction().begin();
         em.persist(obj);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
@@ -38,6 +39,7 @@ public class CategoriaImpl implements Dao<Categoria> {
         em.getTransaction().begin();
         em.merge(obj);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
@@ -51,6 +53,7 @@ public class CategoriaImpl implements Dao<Categoria> {
         Categoria c = find(id);
         em.remove(c);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
@@ -59,6 +62,7 @@ public class CategoriaImpl implements Dao<Categoria> {
         Query consulta = em.createQuery("Select cat FROM Categoria as cat where cat.ativo = false");
         List<Categoria> lista = consulta.getResultList();
         em.getTransaction().commit();
+        em.close();
         return lista;
     }
 

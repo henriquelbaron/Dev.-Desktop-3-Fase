@@ -32,6 +32,7 @@ public class ParticipanteImpl implements Dao<Participante> {
         em.getTransaction().begin();
         em.persist(obj);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
@@ -39,6 +40,7 @@ public class ParticipanteImpl implements Dao<Participante> {
         em.getTransaction().begin();
         em.merge(obj);
         em.getTransaction().commit();
+            em.close();
     }
 
     @Override
@@ -52,6 +54,7 @@ public class ParticipanteImpl implements Dao<Participante> {
         Participante c = find(id);
         em.remove(c);
         em.getTransaction().commit();
+            em.close();
     }
 
     @Override
@@ -60,6 +63,7 @@ public class ParticipanteImpl implements Dao<Participante> {
         Query consulta = em.createQuery("Select p FROM Participante as p where p.ativo = false");
         List<Participante> lista = consulta.getResultList();
         em.getTransaction().commit();
+            em.close();
         return lista;
     }
 
@@ -72,6 +76,5 @@ public class ParticipanteImpl implements Dao<Participante> {
         query.setMaxResults(rowMax);
         return query.getResultList();
     }
-
 
 }

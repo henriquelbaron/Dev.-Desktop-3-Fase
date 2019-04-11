@@ -6,6 +6,7 @@
 package br.com.model.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Participante implements Serializable {
     private String cpf;
     private String email;
     private String telefone;
+    private String senha;
     @ManyToMany
     @JoinTable(name = "participante_categoria",
             joinColumns = @JoinColumn(name = "participanteId"),
@@ -42,11 +44,20 @@ public class Participante implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
+        this.categorias = new ArrayList<>();
     }
 
     public Participante(String nome) {
         this.nome = nome;
 
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public boolean isAtivo() {
@@ -136,7 +147,7 @@ public class Participante implements Serializable {
 
     @Override
     public String toString() {
-        return "Participante{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + '}';
+        return "Participante{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + "Categorias " + categorias + '}';
     }
 
 }

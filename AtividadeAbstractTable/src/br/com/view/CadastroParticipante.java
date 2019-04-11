@@ -5,6 +5,12 @@
  */
 package br.com.view;
 
+import br.com.control.CadastroControl;
+import br.com.control.Validation;
+import br.com.model.dao.CategoriaImpl;
+import br.com.model.domain.Categoria;
+import javax.swing.JCheckBox;
+
 /**
  *
  * @author ACER
@@ -14,8 +20,12 @@ public class CadastroParticipante extends javax.swing.JFrame {
     /**
      * Creates new form CadastroParticipante
      */
+    private CadastroControl control;
+
     public CadastroParticipante() {
         initComponents();
+        control = new CadastroControl();
+
     }
 
     /**
@@ -32,67 +42,103 @@ public class CadastroParticipante extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Cadastro Participantes");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel2.setText("Nome:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 33, -1, -1));
 
         jLabel3.setText("CPF:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 60, -1, -1));
 
-        jLabel4.setText("Email:");
+        jLabel4.setText("Email/Login:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 90, -1, -1));
 
         jLabel5.setText("Telefone:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 197, -1, -1));
+        getContentPane().add(tfNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 30, 90, -1));
+        getContentPane().add(tfCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 57, 90, -1));
+        getContentPane().add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 87, 90, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNome)
-                            .addComponent(tfCpf)
-                            .addComponent(tfEmail)
-                            .addComponent(tfTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)))
-                    .addComponent(jLabel1))
-                .addGap(271, 271, 271))
+        tfTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTelefoneActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tfTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 194, 90, -1));
+
+        jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
+
+        jLabel6.setText("Senha");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 118, -1, -1));
+
+        labelConfirmar.setText("Confirmar");
+        getContentPane().add(labelConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 149, -1, -1));
+
+        labelSenha.setText("Senha");
+        getContentPane().add(labelSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 169, -1, -1));
+
+        tfConfirmaSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfConfirmaSenhaKeyReleased(evt);
+            }
+        });
+        getContentPane().add(tfConfirmaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 146, 90, -1));
+
+        tfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfSenhaKeyReleased(evt);
+            }
+        });
+        getContentPane().add(tfSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 115, 90, -1));
+
+        panelCategoria.setBorder(javax.swing.BorderFactory.createTitledBorder("Categorias"));
+
+        javax.swing.GroupLayout panelCategoriaLayout = new javax.swing.GroupLayout(panelCategoria);
+        panelCategoria.setLayout(panelCategoriaLayout);
+        panelCategoriaLayout.setHorizontalGroup(
+            panelCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 288, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(163, 163, 163))
+        panelCategoriaLayout.setVerticalGroup(
+            panelCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 227, Short.MAX_VALUE)
         );
 
-        pack();
+        getContentPane().add(panelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+
+        setSize(new java.awt.Dimension(578, 329));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tfConfirmaSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfConfirmaSenhaKeyReleased
+        Validation.camposSenhas();        // TODO add your handling code here:
+    }//GEN-LAST:event_tfConfirmaSenhaKeyReleased
+
+    private void tfTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTelefoneActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.salvarAction();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSenhaKeyReleased
+        Validation.camposSenhas();
+    }//GEN-LAST:event_tfSenhaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -130,14 +176,22 @@ public class CadastroParticipante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static final javax.swing.ButtonGroup buttonGroup1 = new javax.swing.ButtonGroup();
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    public static final javax.swing.JLabel labelConfirmar = new javax.swing.JLabel();
+    public static final javax.swing.JLabel labelSenha = new javax.swing.JLabel();
+    public static final javax.swing.JPanel panelCategoria = new javax.swing.JPanel();
+    public static final javax.swing.JPasswordField tfConfirmaSenha = new javax.swing.JPasswordField();
     public static final javax.swing.JTextField tfCpf = new javax.swing.JTextField();
     public static final javax.swing.JTextField tfEmail = new javax.swing.JTextField();
     public static final javax.swing.JTextField tfNome = new javax.swing.JTextField();
+    public static final javax.swing.JPasswordField tfSenha = new javax.swing.JPasswordField();
     public static final javax.swing.JTextField tfTelefone = new javax.swing.JTextField();
     // End of variables declaration//GEN-END:variables
 }

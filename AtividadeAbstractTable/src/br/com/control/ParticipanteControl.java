@@ -1,5 +1,6 @@
 package br.com.control;
 
+import br.com.control.persistence.PersistenceDao;
 import br.com.model.dao.ParticipanteImpl;
 import br.com.model.domain.Participante;
 import br.com.model.domain.ParticipanteTable;
@@ -12,7 +13,6 @@ import java.util.List;
  */
 public class ParticipanteControl {
 
-    private final ParticipanteImpl persistence;
     private final ParticipanteTable table;
     private Integer rowsPerPage;
     private Participante c;
@@ -23,7 +23,6 @@ public class ParticipanteControl {
     private List<Participante> participantes;
 
     public ParticipanteControl() {
-        persistence = new ParticipanteImpl();
         table = new ParticipanteTable();
         defaultConfig();
         refreshTable();
@@ -32,12 +31,12 @@ public class ParticipanteControl {
     public void saveAction() {
         if (c == null) {
             c = new Participante(tfCampo.getText());
-            persistence.save(c);
+            PersistenceDao.getParticipanteImpl().save(c);
             table.addRow(c);
             defaultConfig();
         } else {
             c.setNome(tfCampo.getText());
-            persistence.update(c);
+            PersistenceDao.getParticipanteImpl().update(c);
             table.updateRow(row, c);
         }
         Validation.isSelected();
@@ -53,7 +52,7 @@ public class ParticipanteControl {
         }
         c = table.getRow(getSelectedRow());
         c.setAtivo(true);
-        persistence.update(c);
+        PersistenceDao.getParticipanteImpl().update(c);
         table.removeRow(getSelectedRow());
         controlLabels();
         Validation.isSelected();
@@ -79,7 +78,7 @@ public class ParticipanteControl {
 
     public void previousPag() {
         table.clearTable();
-        participantes = persistence.listar(((currentPage * rowsPerPage) - (rowsPerPage + rowsPerPage)), rowsPerPage);
+        participantes = PersistenceDao.getParticipanteImpl().listar(((currentPage * rowsPerPage) - (rowsPerPage + rowsPerPage)), rowsPerPage);
         for (Participante pt : participantes) {
             table.addRow(pt);
         }
@@ -90,7 +89,7 @@ public class ParticipanteControl {
 
     public void nextPag() {
         table.clearTable();
-        participantes = persistence.listar((currentPage * rowsPerPage), rowsPerPage);
+        participantes = PersistenceDao.getParticipanteImpl().listar((currentPage * rowsPerPage), rowsPerPage);
         for (Participante pt : participantes) {
             table.addRow(pt);
         }
@@ -103,7 +102,7 @@ public class ParticipanteControl {
 
     public void lastPage() {
         table.clearTable();
-        participantes = persistence.listar((totalPage * rowsPerPage) - rowsPerPage, rowsPerPage);
+        participantes = PersistenceDao.getParticipanteImpl().listar((totalPage * rowsPerPage) - rowsPerPage, rowsPerPage);
         for (Participante pt : participantes) {
             table.addRow(pt);
         }
@@ -114,7 +113,7 @@ public class ParticipanteControl {
 
     public void firstPage() {
         table.clearTable();
-        participantes = persistence.listar(0, rowsPerPage);
+        participantes = PersistenceDao.getParticipanteImpl().listar(0, rowsPerPage);
         for (Participante pt : participantes) {
             table.addRow(pt);
         }
@@ -127,7 +126,7 @@ public class ParticipanteControl {
         table.clearTable();
         currentPage = 1;
         rowsPerPage = Integer.valueOf(comboBox.getSelectedItem().toString());
-        List<Participante> cat = persistence.listar(0, rowsPerPage);
+        List<Participante> cat = PersistenceDao.getParticipanteImpl().listar(0, rowsPerPage);
         for (Participante categoria : cat) {
             table.addRow(categoria);
         }
@@ -144,7 +143,7 @@ public class ParticipanteControl {
     }
 
     public void controlLabels() {
-        totalRegistros = persistence.listar().size();
+        totalRegistros = PersistenceDao.getParticipanteImpl().listar().size();
         labelTotalRegistros.setText(totalRegistros.toString());
         labelRegistros.setText(String.valueOf(participantes.size()));
         labelPaginaAtual.setText(currentPage.toString());

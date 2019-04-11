@@ -6,9 +6,7 @@
 package br.com.view;
 
 import br.com.control.CategoriaControl;
-import br.com.control.ParticipanteControl;
 import br.com.control.Validation;
-import br.com.model.domain.ParticipanteTable;
 
 /**
  *
